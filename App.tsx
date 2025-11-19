@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Trash, Plus, Clock, Package, Truck, FileText, CheckCircle2, Box, Settings, Cloud, CloudOff, RefreshCw, Save } from 'lucide-react';
+import { Trash, Plus, Clock, Package, Truck, FileText, CheckCircle2, Box, Settings, Cloud, CloudOff, RefreshCw, Save, Linkedin } from 'lucide-react';
 import { DEFAULT_DATA } from './constants';
 import { AppData, OutboundItem, InboundItem, ProgressBarData } from './types';
 import { StatusCheckbox } from './components/StatusCheckbox';
@@ -439,7 +439,7 @@ const App: React.FC = () => {
       </div>
 
       {/* BOTTOM ROW: Progress Bars */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-5 mt-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-5">
           {data.progressBars.map((bar, idx) => (
               <ProgressBar key={bar.id} data={bar} 
                 onUpdate={(field, val) => {
@@ -454,6 +454,25 @@ const App: React.FC = () => {
             <Plus size={40} className="group-hover:scale-110 transition-transform"/><span className="font-bold text-sm uppercase">Novo Shipment</span>
           </button>
       </div>
+
+      {/* FOOTER */}
+      <footer className="mt-6 border-t border-kn-neutral2/30 pt-6 pb-2 text-center">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-2 text-sm text-kn-neutral3">
+          <span>&copy; {new Date().getFullYear()} Painel Operacional Logístico.</span>
+          <span className="hidden md:inline mx-1">|</span>
+          <div className="flex items-center gap-1">
+             <span>Desenvolvido por</span>
+             <a 
+               href="https://www.linkedin.com/in/abner-soares/" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               className="flex items-center gap-1 font-bold text-kn-lightBlue hover:text-kn-darkBlue transition-colors"
+             >
+                Abner Soares <Linkedin size={14} />
+             </a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
