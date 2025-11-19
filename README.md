@@ -1,120 +1,45 @@
 # 📦 Painel Operacional Logístico
 
-Um painel de controle visual (Dashboard) desenvolvido para operações de armazém e logística. O sistema substitui quadros brancos tradicionais e planilhas estáticas, oferecendo visualização em tempo real, edição intuitiva e sincronização na nuvem via Google Sheets.
+Desenvolvido para otimizar a gestão visual em operações de armazém, este painel substitui controles manuais por uma interface digital reativa, focada em grandes telas (TVs) e facilidade de uso.
 
-![Painel Preview](https://imgur.com/r0Kg9ov.png)
-*(Substitua ou mantenha a imagem acima como capa)*
+<img width="1919" height="905" alt="image" src="https://github.com/user-attachments/assets/d3574c81-1ba4-4929-bad7-5d275989f084" />
 
----
+## 🚀 Funcionalidades Principais
 
-## 🚀 Funcionalidades
-
--   **Monitoramento de Outbound:** Acompanhamento de pedidos por praça, horário e status (Separando, Separado, Romaneio, Carregado).
--   **Monitoramento de Inbound:** Controle de descargas e recebimentos.
--   **Metas e Shipments:** Barras de progresso visuais para acompanhamento de metas de expedição/estoque.
--   **Edição "In-Place":** Clique duas vezes em qualquer texto ou número para editar instantaneamente.
--   **Modo TV:** Interface otimizada para grandes telas, com fontes legíveis e alto contraste.
--   **Sincronização Híbrida:**
-    -   **Offline-First:** Os dados são salvos no navegador instantaneamente.
-    -   **Cloud Sync:** Sincronização automática com **Google Sheets** para atualizar múltiplas telas simultaneamente.
--   **Sistema de Cores KN:** Paleta de cores profissional e consistente.
-
-## 🛠️ Tecnologias Utilizadas
-
--   **Frontend:** React 19
--   **Estilização:** Tailwind CSS
--   **Ícones:** Lucide React
--   **Backend / Banco de Dados:** Google Apps Script + Google Sheets (API Gratuita)
+*   **Gestão Visual em Tempo Real:** Monitoramento claro de fluxos de Inbound e Outbound com indicadores de status coloridos.
+*   **Sincronização Híbrida:** Integração "Serverless" utilizando Google Sheets como backend, permitindo atualizações remotas.
+*   **Interface "Click-to-Edit":** Edição intuitiva de qualquer dado na tela com duplo clique, sem necessidade de formulários complexos.
+*   **Design Responsivo & Modo TV:** Layout adaptável que prioriza legibilidade, contraste e hierarquia visual em grandes monitores.
+*   **Resiliência de Dados:** Sistema robusto com cache local (LocalStorage) e recuperação automática de falhas.
 
 ---
 
-## ⚙️ Instalação e Execução Local
+## 🛠️ Tecnologias & Arquitetura
 
-1.  Clone o repositório:
-    ```bash
-    git clone https://github.com/seu-usuario/painel-logistica.git
-    ```
+Este projeto utiliza uma stack moderna para garantir performance e baixo custo de manutenção, eliminando a necessidade de servidores dedicados.
 
-2.  Entre na pasta do projeto:
-    ```bash
-    cd painel-logistica
-    ```
+### Frontend (Interface)
+*   **React 19:** Core da aplicação, garantindo uma interface fluida e reativa.
+*   **Tailwind CSS:** Framework de estilização para manter a identidade visual corporativa (Cores KN) e responsividade.
+*   **TypeScript:** Garante a segurança do código e previne erros de dados em tempo de execução.
+*   **Lucide React:** Biblioteca de ícones leves e modernos.
 
-3.  Instale as dependências:
-    ```bash
-    npm install
-    ```
-
-4.  Rode o projeto:
-    ```bash
-    npm run dev
-    ```
+### Backend & Integração (Processo)
+*   **Google Apps Script (API):** Atua como um "API Gateway" gratuito, recebendo as requisições do painel.
+*   **Google Sheets (Database):** Funciona como banco de dados na nuvem. Permite que a gestão acompanhe o histórico ou altere dados via celular/planilha que refletem na TV da operação.
+*   **JSON Polling:** O painel verifica periodicamente alterações na nuvem para manter todas as telas sincronizadas.
 
 ---
 
-## ☁️ Configuração da Integração (Google Sheets)
+## 👨‍💻 Autor & Desenvolvimento
 
-Para que a sincronização entre diferentes telas funcione, você precisa configurar o script no Google Sheets. É gratuito e rápido.
+Projeto desenvolvido com foco em excelência operacional, UX e tecnologias web modernas.
 
-1.  Crie uma nova planilha em branco no [Google Sheets](https://sheets.new).
-2.  Vá no menu **Extensões** > **Apps Script**.
-3.  Apague todo o código existente e cole o código abaixo:
-
-```javascript
-function doGet(e) {
-  var props = PropertiesService.getScriptProperties();
-  var data = props.getProperty('DATA_JSON');
-  
-  if (!data) {
-    return ContentService.createTextOutput(JSON.stringify({}))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-  
-  return ContentService.createTextOutput(data)
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-function doPost(e) {
-  var jsonData = e.postData.contents;
-  var parsedData = JSON.parse(jsonData);
-  
-  var props = PropertiesService.getScriptProperties();
-  props.setProperty('DATA_JSON', jsonData);
-  
-  saveToSheet(parsedData); // Opcional: Cria backup visível
-  
-  return ContentService.createTextOutput("Sucesso");
-}
-
-function saveToSheet(data) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ss.getSheetByName('Backup');
-  if (!sheet) { sheet = ss.insertSheet('Backup'); }
-  sheet.getRange('A1').setValue(JSON.stringify(data));
-  sheet.getRange('A2').setValue("Última atualização: " + new Date());
-}
-```
-
-4.  Clique em **Implantar** (Deploy) > **Nova implantação**.
-5.  Clique na engrenagem ⚙️ > **App da Web**.
-6.  Configure:
-    *   **Descrição:** Painel API
-    *   **Executar como:** *Eu*
-    *   **Quem pode acessar:** *Qualquer pessoa* (Necessário para funcionar sem login na TV).
-7.  Copie a **URL do App da Web** gerada.
-8.  No Painel (aplicação rodando), clique na engrenagem ⚙️ no canto superior direito e cole a URL.
+<div align="left">
+  <a href="https://www.linkedin.com/in/abner-soares/" target="_blank">
+    <img src="https://img.shields.io/badge/Desenvolvido_por-Abner_Soares-003369?style=for-the-badge&logo=linkedin&logoColor=white" alt="Abner Soares LinkedIn" />
+  </a>
+</div>
 
 ---
-
-## 🎨 Personalização
-
-As cores do projeto estão definidas no `tailwind.config.js` (ou na configuração inline no `index.html`):
-
--   `kn-darkBlue`: #003369
--   `kn-lightBlue`: #0099DA
--   `kn-green`: #08C792
--   `kn-red`: #ED2939
-
-## 📝 Licença
-
-Este projeto está sob a licença MIT. Sinta-se livre para usar e modificar.
+*© 2025 Painel Operacional Logístico - Todos os direitos reservados.*
