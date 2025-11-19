@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Painel Operacional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              kn: {
+                darkBlue: '#003369',
+                lightBlue: '#0099DA',
+                green: '#08C792',
+                red: '#ED2939',
+                neutral1: '#F6F5F0',
+                neutral2: '#C5C6BF',
+                neutral3: '#929288',
+                neutral4: '#62635B',
+                neutral5: '#373832',
+                black: '#000000',
+              }
+            },
+            fontFamily: {
+              sans: ['Arial', 'Helvetica', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-kn-neutral1 text-kn-black antialiased">
+    <div id="root"></div>
+  </body>
+</html>

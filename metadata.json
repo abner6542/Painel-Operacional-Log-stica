@@ -1,0 +1,5 @@
+{
+  "name": "Painel Operacional Logística",
+  "description": "Painel de visualização para operações de armazém, exibindo status de outbound, inbound, estoque e métricas de desempenho com persistência local.",
+  "requestFramePermissions": []
+}
